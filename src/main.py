@@ -16,7 +16,7 @@ os.environ["DISPLAY"] = ":0"
 DEBUG = True
 
 # ENGINE mode 
-ENGINE = False
+ENGINE = True
 
 # IMAGE_FOLDER
 IMAGE_FOLDER = f"images/{int(time.time())}/"
