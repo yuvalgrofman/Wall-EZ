@@ -62,8 +62,6 @@ FWD_NAVIGATION_DURATION  = 0.1
 FWD_SEARCH_DURATION      = 1
 FWD_FINAL_DURATION       = 1
 
-# 
-
 # === HELPERS ===
 
 def get_forwarwd_time_final(y_pos):
@@ -230,7 +228,7 @@ def steer_by_state(state, frame=None, pos=None):
     # --- Persist the decision visually ---
     process_command("STOP")
     if DEBUG and frame is not None:
-        save_decision_image(frame, None, "SEARCH_FWD")
+        save_decision_image(frame, None, state)
 
     # --- Execute the movement ---
     if state == "VERY_FAR_LEFT":
