@@ -15,11 +15,10 @@ from zoneinfo import ZoneInfo
 # Ensure OpenCV can access the display for imshow
 os.environ["DISPLAY"] = ":0"
 
-# Debug mode — set to False to disable image saving
+# FLAGS
 DEBUG = True
-
-# ENGINE mode 
 ENGINE = True
+STABILIZE_AFTER_STEERING = True
 
 # IMAGE_FOLDER
 israel_tz = ZoneInfo("Asia/Jerusalem")
@@ -60,6 +59,9 @@ TURN_RIGHT_DURATION_FAR      = 0.07
 
 TURN_LEFT_DURATION_VERY_FAR  = 0.14
 TURN_LEFT_DURATION_FAR       = 0.07
+
+# STOP AFTER STEERING DURATION TO STABILIZE CAMERA
+STEERING_STABILIZATION_DURATION = 0.4
 
 # Forward nudge / navigation / search durations (seconds)
 FWD_NUDGE_DURATION       = 0.05
@@ -239,18 +241,30 @@ def steer_by_state(state, frame=None, pos=None):
     if state == "VERY_FAR_LEFT":
         process_command("LEFT")
         time.sleep(TURN_LEFT_DURATION_VERY_FAR)
+        if STABILIZE_AFTER_STEERING:
+            process_command("STOP")
+            time.sleep(STEERING_STABILIZATION_DURATION)
 
     elif state == "LEFT":
         process_command("LEFT")
         time.sleep(TURN_LEFT_DURATION_FAR)
+        if STABILIZE_AFTER_STEERING:
+            process_command("STOP")
+            time.sleep(STEERING_STABILIZATION_DURATION)
 
     elif state == "VERY_FAR_RIGHT":
         process_command("RIGHT")
         time.sleep(TURN_RIGHT_DURATION_VERY_FAR)
+        if STABILIZE_AFTER_STEERING:
+            process_command("STOP")
+            time.sleep(STEERING_STABILIZATION_DURATION)
 
     elif state == "RIGHT":
         process_command("RIGHT")
         time.sleep(TURN_RIGHT_DURATION_FAR)
+        if STABILIZE_AFTER_STEERING:
+            process_command("STOP")
+            time.sleep(STEERING_STABILIZATION_DURATION)
 
     elif state == "FORWARD":
         process_command("FWD")
