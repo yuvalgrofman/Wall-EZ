@@ -58,8 +58,8 @@ TURN_LEFT_DURATION_FAR       = 0.05
 
 # Forward nudge / navigation / search durations (seconds)
 FWD_NUDGE_DURATION       = 0.05
-FWD_NAVIGATION_DURATION  = 0.1
-FWD_SEARCH_DURATION      = 1
+FWD_NAVIGATION_DURATION  = 0.05
+FWD_SEARCH_DURATION      = 0.5
 FWD_FINAL_DURATION       = 1
 
 # === HELPERS ===

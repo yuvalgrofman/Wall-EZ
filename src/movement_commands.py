@@ -75,8 +75,6 @@ def process_command(cmd):
         # right wheels stop, left wheels forward
         servo_lf.value = map_degree_to_value(180)
         servo_lb.value = map_degree_to_value(180)
-        # servo_rf.value = map_degree_to_value(90)
-        # servo_rb.value = map_degree_to_value(90)
         servo_rf.value = map_degree_to_value(180)
         servo_rb.value = map_degree_to_value(180)
 
@@ -141,9 +139,10 @@ if __name__ == "__main__":
         # time.sleep(0.5)
         # process_command("ARM_STOP")
 
-        # process_command("FWD")
-        # time.sleep(3)
-        # process_command("STOP")
+        process_command("FWD")
+        time.sleep(3)
+        process_command("STOP")
+        time.sleep(10)
 
         apply_esc_microsec(1000)  # Neutral for ESC
 
