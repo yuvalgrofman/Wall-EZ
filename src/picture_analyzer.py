@@ -53,36 +53,37 @@ def find_target_aruco(image):
 
 
 def find_target_fallback(image: np.ndarray, threshold=70):
-    """Fallback: Gradient derivative centroid tracking."""
-    img = image.astype(np.float64)
+    # """Fallback: Gradient derivative centroid tracking."""
+    # img = image.astype(np.float64)
 
-    # Convert to grayscale
-    if img.ndim == 3:
-        img = 0.299 * img[..., 0] + 0.587 * img[..., 1] + 0.114 * img[..., 2]
+    # # Convert to grayscale
+    # if img.ndim == 3:
+    #     img = 0.299 * img[..., 0] + 0.587 * img[..., 1] + 0.114 * img[..., 2]
 
-    # Calculate left (backward) derivative along the x-axis
-    derivative = np.zeros_like(img)
-    derivative[:, 1:] = abs(img[:, 1:] - img[:, :-1])
+    # # Calculate left (backward) derivative along the x-axis
+    # derivative = np.zeros_like(img)
+    # derivative[:, 1:] = abs(img[:, 1:] - img[:, :-1])
 
-    # Threshold
-    binary = np.where(derivative > threshold, 255.0, 0.0)
-    white_pixels = np.argwhere(binary == 255)
+    # # Threshold
+    # binary = np.where(derivative > threshold, 255.0, 0.0)
+    # white_pixels = np.argwhere(binary == 255)
 
-    if white_pixels.size == 0:
-        return None
+    # if white_pixels.size == 0:
+    #     return None
 
-    y_coords = white_pixels[:, 0]
-    x_coords = white_pixels[:, 1]
+    # y_coords = white_pixels[:, 0]
+    # x_coords = white_pixels[:, 1]
     
-    # Weights scaled with polynomial function
-    weights = np.power(derivative[y_coords, x_coords], 8)
+    # # Weights scaled with polynomial function
+    # weights = np.power(derivative[y_coords, x_coords], 8)
 
-    # Calculate weighted mean
-    x_mean = np.average(x_coords, weights=weights)
-    y_mean = np.average(y_coords, weights=weights)
+    # # Calculate weighted mean
+    # x_mean = np.average(x_coords, weights=weights)
+    # y_mean = np.average(y_coords, weights=weights)
 
-    # Cast to int so it plays nicely with cv2 drawing functions downstream
-    return (int(x_mean), int(y_mean))
+    # # Cast to int so it plays nicely with cv2 drawing functions downstream
+    # return (int(x_mean), int(y_mean))
+    return None
 
 
 def find_target(image):

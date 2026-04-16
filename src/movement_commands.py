@@ -50,6 +50,15 @@ def apply_esc_microsec(val):
     esc.value = mapped_value
     print(f"ESC set to {val}us -> Value: {mapped_value:.2f}")
 
+
+###################################################
+# ############# MAKE SURE ENGINE IS OFF ###########
+###################################################
+apply_esc_microsec(1000)
+###################################################
+# ############# MAKE SURE ENGINE IS OFF ###########
+###################################################
+
 def map_degree_to_value(degree):
     """Maps a 0-180 degree value to the -1.0 to 1.0 range."""
     return (degree - 90) / 90.0
@@ -99,7 +108,7 @@ def process_command(cmd):
     elif cmd == "ARM_DOWN":
         servo_arm1.value = map_degree_to_value(180)
         servo_arm2.value = map_degree_to_value(180)
-        servo_arm3.value = map_degree_to_value(180)
+        servo_arm3.value = map_degree_to_value(0)
 
     elif cmd == "ARM_STOP":
         servo_arm1.value = map_degree_to_value(90)
@@ -113,8 +122,6 @@ def process_command(cmd):
         except ValueError:
             print("Invalid ESC command format")
 
-
-
 if __name__ == "__main__":
 
     # before execution run these commands in the terminal
@@ -122,9 +129,8 @@ if __name__ == "__main__":
     # sudo pigpiod
 
     try:
-        # MUST!!!
+        # MUST!!!  apply_esc_microsec(1000)  # Neutral for ESC time.sleep(1)  # Allow ESC to initialize
         apply_esc_microsec(1000)  # Neutral for ESC
-        time.sleep(1)  # Allow ESC to initialize
 
         # apply_esc_microsec(1500)  # Start at neutral
         # time.sleep(1)
@@ -132,8 +138,12 @@ if __name__ == "__main__":
         # time.sleep(3)
 
         # process_command("ARM_DOWN")  
+        # time.sleep(0.5)
+        # process_command("ARM_STOP")
+
+        # process_command("FWD")
         # time.sleep(3)
-        process_command("ARM_STOP")
+        # process_command("STOP")
 
         apply_esc_microsec(1000)  # Neutral for ESC
 

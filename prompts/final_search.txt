@@ -1,0 +1,29 @@
+======================================
+========= FINAL SEARCH PHASE ========= 
+======================================
+
+Hello Claude,
+
+Please update the code to implement the following:
+
+1. The code should keep a counter named TARGET_FOUND_COUNTER that counts 
+the number of times the target is found in the last five attempts. 
+The counter should be updated for every call to get_majority_target() which 
+is in the given file.
+
+2. When the counter is greater than or equal to 3, 
+the code flips a flag named CONSISTENT_TARGET_FOUND to True. 
+
+3 When CONSISTENT_TARGET_FOUND is True, 
+and the robot does not find the target in the current attempt,
+it should call the function final_phase_decision() which should be implemented as follows:
+
+The goal of final_phase_decision() is to execute a sequence of small foward movements 
+and for each movement to check if the target is found. 
+If the target is found, it should return to the main loop and continue with the normal behavior.
+
+Otherwise, if after 5 small forward movements the target is still not found,
+this means that the target is not seen because it is very close to the robot 
+and the robot should enter the phase_final_approach() which is in the given file.
+
+Do you best and thank you!
