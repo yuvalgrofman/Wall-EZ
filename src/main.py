@@ -12,6 +12,9 @@ import math
 # Ensure OpenCV can access the display for imshow
 os.environ["DISPLAY"] = ":0"
 
+# Debug mode — set to False to disable image saving
+DEBUG = True
+
 # IMAGE_FOLDER
 IMAGE_FOLDER = f"captured_images/{int(time.time())}/"
 
@@ -216,12 +219,10 @@ def steer_by_state(state, frame=None, pos=None):
     frame : np.ndarray   – camera frame to annotate (may be None)
     pos   : tuple | None – (x, y) target position for annotation
     """
-    # --- Stop before every movement ---
-    process_command("STOP")
-
     # --- Persist the decision visually ---
-    if frame is not None:
-        save_decision_image(frame, pos, state)
+    process_command("STOP")
+    if DEBUG and frame is not None:
+        save_decision_image(frame, None, "SEARCH_FWD")
 
     # --- Execute the movement ---
     if state == "VERY_FAR_LEFT":
@@ -311,7 +312,7 @@ def phase_navigate(cap):
             else:
                 print("Target lost unexpectedly — searching forward...")
                 process_command("STOP")
-                if frame is not None:
+                if DEBUG and frame is not None:
                     save_decision_image(frame, None, "SEARCH_FWD")
                 process_command("FWD")
                 time.sleep(FWD_SEARCH_DURATION)
@@ -335,7 +336,7 @@ def phase_final_approach():
     time.sleep(FWD_FINAL_DURATION)
     process_command("STOP")
     print("Unloading charge...")
-    unload_charge()
+    # unload_charge()
     time.sleep(2)
     process_command("FWD")
     time.sleep(0.1)
