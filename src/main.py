@@ -39,8 +39,8 @@ NUM_FRAMES_FOR_DECISION = 3   # frames sampled per decision
 
 # Pixel-band thresholds along the horizontal axis (after rotation).
 ZONE_VERY_FAR_LEFT_MAX  = int(LOGICAL_WIDTH * 0.10)
-ZONE_LEFT_MAX           = int(LOGICAL_WIDTH * 0.45)
-ZONE_RIGHT_MIN          = int(LOGICAL_WIDTH * 0.55)
+ZONE_LEFT_MAX           = int(LOGICAL_WIDTH * 0.30)
+ZONE_RIGHT_MIN          = int(LOGICAL_WIDTH * 0.70)
 ZONE_VERY_FAR_RIGHT_MIN = int(LOGICAL_WIDTH * 0.90)
 
 # "Close enough" threshold
@@ -57,7 +57,7 @@ TURN_LEFT_DURATION_FAR       = 0.05
 FWD_NUDGE_DURATION       = 0.05
 FWD_NAVIGATION_DURATION  = 0.1
 FWD_SEARCH_DURATION      = 1
-FWD_FINAL_DURATION       = 1
+FWD_FINAL_DURATION       = 1.3
 
 # === HELPERS ===
 
