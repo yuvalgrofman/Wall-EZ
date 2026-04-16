@@ -42,8 +42,8 @@ NUM_FRAMES_FOR_DECISION = 1   # frames sampled per decision
 
 # Pixel-band thresholds along the horizontal axis (after rotation).
 ZONE_VERY_FAR_LEFT_MAX  = int(LOGICAL_WIDTH * 0.10)
-ZONE_LEFT_MAX           = int(LOGICAL_WIDTH * 0.30)
-ZONE_RIGHT_MIN          = int(LOGICAL_WIDTH * 0.70)
+ZONE_LEFT_MAX           = int(LOGICAL_WIDTH * 0.35)
+ZONE_RIGHT_MIN          = int(LOGICAL_WIDTH * 0.65)
 ZONE_VERY_FAR_RIGHT_MIN = int(LOGICAL_WIDTH * 0.90)
 
 # "Close enough" threshold
