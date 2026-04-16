@@ -4,6 +4,9 @@ from picture_analyzer import capture_image_from_usb_camera, find_target_aruco, f
 import cv2
 import time
 import math
+from datetime import datetime
+from zoneinfo import ZoneInfo
+
 
 #TODO: Look at code!!!
 
@@ -19,7 +22,9 @@ DEBUG = True
 ENGINE = True
 
 # IMAGE_FOLDER
-IMAGE_FOLDER = f"images/{int(time.time())}/"
+israel_tz = ZoneInfo("Asia/Jerusalem")
+idt_time = datetime.now(israel_tz)
+IMAGE_FOLDER = f"images/" + idt_time.strftime("%Y-%m-%d-%H:%M:%S")
 
 # Camera
 FRAME_WIDTH  = 1280
