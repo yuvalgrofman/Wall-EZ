@@ -47,24 +47,24 @@ NUM_FRAMES_FOR_DECISION = 1   # frames sampled per decision
 
 # Pixel-band thresholds along the horizontal axis (after rotation).
 ZONE_VERY_FAR_LEFT_MAX  = int(LOGICAL_WIDTH * 0.10)
-ZONE_LEFT_MAX           = int(LOGICAL_WIDTH * 0.35)
-ZONE_RIGHT_MIN          = int(LOGICAL_WIDTH * 0.65)
+ZONE_LEFT_MAX           = int(LOGICAL_WIDTH * 0.40)
+ZONE_RIGHT_MIN          = int(LOGICAL_WIDTH * 0.60)
 ZONE_VERY_FAR_RIGHT_MIN = int(LOGICAL_WIDTH * 0.90)
 
 # "Close enough" threshold
 CLOSE_ENOUGH_Y_MIN = int(LOGICAL_HEIGHT * 0.50)
 
 # Steering durations (seconds)
-TURN_RIGHT_DURATION_VERY_FAR = 0.2
-TURN_RIGHT_DURATION_FAR      = 0.1
+TURN_RIGHT_DURATION_VERY_FAR = 0.14
+TURN_RIGHT_DURATION_FAR      = 0.07
 
-TURN_LEFT_DURATION_VERY_FAR  = 0.2
-TURN_LEFT_DURATION_FAR       = 0.1
+TURN_LEFT_DURATION_VERY_FAR  = 0.14
+TURN_LEFT_DURATION_FAR       = 0.07
 
 # Forward nudge / navigation / search durations (seconds)
 FWD_NUDGE_DURATION       = 0.05
 FWD_NAVIGATION_DURATION  = 0.05
-FWD_SEARCH_DURATION      = 0.5
+FWD_SEARCH_DURATION      = 0.05
 FWD_FINAL_DURATION       = 1
 
 # === HELPERS ===
@@ -347,8 +347,6 @@ def phase_navigate(cap):
 def phase_final_approach():
     """Move forward for a fixed duration then unload."""
     print("Final approach...")
-    process_command("STOP")
-    time.sleep(1)
     process_command("FWD")
     time.sleep(FWD_FINAL_DURATION)
     process_command("STOP")
