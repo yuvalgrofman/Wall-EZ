@@ -207,11 +207,10 @@ def phase_init():
     print("Initializing ESC...")
     apply_esc_microsec(ESC_NEUTRAL)
     time.sleep(ESC_INIT_DELAY)
-
-    # apply_esc_microsec(ESC_START)
-    # time.sleep(ESC_INIT_DELAY)
-    # apply_esc_microsec(ESC_FULL_FORWARD)
-    # time.sleep(ESC_INIT_DELAY)
+    apply_esc_microsec(ESC_START)
+    time.sleep(ESC_INIT_DELAY)
+    apply_esc_microsec(ESC_FULL_FORWARD)
+    time.sleep(ESC_INIT_DELAY)
 
     print("ESC initialized.")
 
@@ -291,7 +290,7 @@ def phase_final_approach():
     apply_esc_microsec(ESC_NEUTRAL)
 
 # === MAIN ===
-if name == "main":
+if __name__ == "__main__":
     cap = cv2.VideoCapture(0)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH,  FRAME_WIDTH)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, FRAME_HEIGHT)

@@ -3,8 +3,6 @@ import socket
 from gpiozero import Servo
 from gpiozero.pins.pigpio import PiGPIOFactory
 
-
-
 # Initialize the pigpio factory for precise hardware PWM
 factory = PiGPIOFactory()
 
@@ -15,9 +13,9 @@ PIN_RB = 26  # Physical Pin 37
 PIN_RF = 27  # Physical Pin 13
 
 # --- Arm / Placement Servos ---
-PIN_ARM1 = 21 # Physical Pin 40
-PIN_ARM2 = 20 # Physical Pin 38
-PIN_ARM3 = 16 # Physical Pin 36
+PIN_ARM1 = 21 # Physical Pin 40 - A
+PIN_ARM2 = 20 # Physical Pin 38 - A
+PIN_ARM3 = 23 # Physical Pin 36 - B
 
 # --- ESC ---
 PIN_ESC = 18  # Physical Pin 12
@@ -73,9 +71,6 @@ def process_command(cmd):
         servo_rf.value = map_degree_to_value(180)
         servo_rb.value = map_degree_to_value(180)
 
-
-        
-            
     elif cmd == "LEFT":
         for wheel in wheels:
             wheel.value = map_degree_to_value(0)
@@ -100,6 +95,16 @@ def process_command(cmd):
             
     elif cmd == "ARM_UP":
         servo_arm1.value = map_degree_to_value(120)
+    
+    elif cmd == "ARM_DOWN":
+        servo_arm1.value = map_degree_to_value(180)
+        servo_arm2.value = map_degree_to_value(180)
+        servo_arm3.value = map_degree_to_value(180)
+
+    elif cmd == "ARM_STOP":
+        servo_arm1.value = map_degree_to_value(90)
+        servo_arm2.value = map_degree_to_value(90)
+        servo_arm3.value = map_degree_to_value(90)
         
     elif cmd.startswith("ESC:"):
         try:
@@ -126,13 +131,11 @@ if __name__ == "__main__":
         # apply_esc_microsec(1950)  # Full forward
         # time.sleep(3)
 
-        process_command("FWD")  
-        time.sleep(1)
+        # process_command("ARM_DOWN")  
+        # time.sleep(3)
+        process_command("ARM_STOP")
 
-        process_command("STOP")
-        time.sleep(1.5)
-
-        # apply_esc_microsec(1000)  # Neutral for ESC
+        apply_esc_microsec(1000)  # Neutral for ESC
 
     finally:
         process_command("STOP")
