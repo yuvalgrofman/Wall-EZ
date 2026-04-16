@@ -15,8 +15,11 @@ os.environ["DISPLAY"] = ":0"
 # Debug mode — set to False to disable image saving
 DEBUG = True
 
+# ENGINE mode 
+ENGINE = False
+
 # IMAGE_FOLDER
-IMAGE_FOLDER = f"captured_images/{int(time.time())}/"
+IMAGE_FOLDER = f"images/{int(time.time())}/"
 
 # Camera
 FRAME_WIDTH  = 1280
@@ -35,7 +38,7 @@ ESC_FULL_FORWARD = 2000
 ESC_INIT_DELAY   = 1    # seconds between ESC init steps
 
 # Decision making
-NUM_FRAMES_FOR_DECISION = 3   # frames sampled per decision
+NUM_FRAMES_FOR_DECISION = 1   # frames sampled per decision
 
 # Pixel-band thresholds along the horizontal axis (after rotation).
 ZONE_VERY_FAR_LEFT_MAX  = int(LOGICAL_WIDTH * 0.10)
@@ -57,9 +60,14 @@ TURN_LEFT_DURATION_FAR       = 0.05
 FWD_NUDGE_DURATION       = 0.05
 FWD_NAVIGATION_DURATION  = 0.1
 FWD_SEARCH_DURATION      = 1
-FWD_FINAL_DURATION       = 1.3
+FWD_FINAL_DURATION       = 1
+
+# 
 
 # === HELPERS ===
+
+def get_forwarwd_time_final(y_pos):
+    return   
 
 def rotate_frame(frame):
     """Rotate frame upside down to correct for camera orientation."""
@@ -263,13 +271,17 @@ def phase_init():
     print("Initializing ESC...")
     apply_esc_microsec(ESC_NEUTRAL)
     time.sleep(ESC_INIT_DELAY)
-    apply_esc_microsec(ESC_START)
-    time.sleep(ESC_INIT_DELAY)
-    apply_esc_microsec(ESC_MIDDLE)
-    time.sleep(ESC_INIT_DELAY)
-    apply_esc_microsec(ESC_FULL_FORWARD)
-    time.sleep(ESC_INIT_DELAY)
-    print("ESC initialized.")
+
+    if ENGINE:
+        apply_esc_microsec(ESC_START)
+        time.sleep(ESC_INIT_DELAY)
+        apply_esc_microsec(ESC_MIDDLE)
+        time.sleep(ESC_INIT_DELAY)
+        apply_esc_microsec(ESC_FULL_FORWARD)
+        time.sleep(ESC_INIT_DELAY)
+        print("ESC initialized.")
+    else:
+        print("ENGINE mode disabled — skipping ESC initialization.")
 
 
 def phase_search(cap):
@@ -308,6 +320,8 @@ def phase_navigate(cap):
         if pos is None:
             if last_y is not None and last_y >= CLOSE_ENOUGH_Y_MIN:
                 print(f"Target lost after being close (last y={last_y}). Proceeding to unload.")
+                if DEBUG and frame is not None:
+                    save_decision_image(frame, None, "ENTERING_FINAL_APPROACH")
                 return
             else:
                 print("Target lost unexpectedly — searching forward...")
@@ -331,7 +345,7 @@ def phase_final_approach():
     """Move forward for a fixed duration then unload."""
     print("Final approach...")
     process_command("STOP")
-    time.sleep(0.2)
+    time.sleep(1)
     process_command("FWD")
     time.sleep(FWD_FINAL_DURATION)
     process_command("STOP")
