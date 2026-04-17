@@ -18,7 +18,7 @@ os.environ["DISPLAY"] = ":0"
 # FLAGS
 DEBUG = True
 ENGINE = True
-STABILIZE_AFTER_STEERING = True
+STABILIZE_AFTER_STEERING = False
 
 # IMAGE_FOLDER
 israel_tz = ZoneInfo("Asia/Jerusalem")
@@ -233,8 +233,8 @@ def steer_by_state(state, frame=None, pos=None):
     pos   : tuple | None – (x, y) target position for annotation
     """
     # --- Persist the decision visually ---
-    process_command("STOP")
     if DEBUG and frame is not None:
+        process_command("STOP")
         save_decision_image(frame, None, state)
 
     # --- Execute the movement ---
@@ -315,8 +315,8 @@ def phase_search(cap):
 
         print("Target not found — moving forward to search...")
         # Stop + save image showing the 'no target' search decision
-        process_command("STOP")
         if frame is not None:
+            process_command("STOP")
             save_decision_image(frame, None, "SEARCH_FWD")
         process_command("FWD")
         time.sleep(FWD_SEARCH_DURATION)
@@ -342,8 +342,8 @@ def phase_navigate(cap):
                 return
             else:
                 print("Target lost unexpectedly — searching forward...")
-                process_command("STOP")
                 if DEBUG and frame is not None:
+                    process_command("STOP")
                     save_decision_image(frame, None, "SEARCH_FWD")
                 process_command("FWD")
                 time.sleep(FWD_SEARCH_DURATION)

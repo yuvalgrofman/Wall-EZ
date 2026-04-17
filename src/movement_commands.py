@@ -130,19 +130,26 @@ if __name__ == "__main__":
         # MUST!!!  apply_esc_microsec(1000)  # Neutral for ESC time.sleep(1)  # Allow ESC to initialize
         apply_esc_microsec(1000)  # Neutral for ESC
 
-        # apply_esc_microsec(1500)  # Start at neutral
-        # time.sleep(1)
-        # apply_esc_microsec(1950)  # Full forward
-        # time.sleep(3)
+        apply_esc_microsec(1500)  # Start at neutral
+        time.sleep(1)
+        apply_esc_microsec(1950)  # Full forward
+        time.sleep(3)
 
         # process_command("ARM_DOWN")  
         # time.sleep(0.5)
         # process_command("ARM_STOP")
 
+
         process_command("FWD")
-        time.sleep(3)
+        time.sleep(1)
+        process_command("RIGHT")
+        time.sleep(0.07 * 5)
         process_command("STOP")
-        time.sleep(10)
+        time.sleep(0.3)
+        process_command("FWD")
+        time.sleep(1)
+        process_command("STOP")
+        time.sleep(2)
 
         apply_esc_microsec(1000)  # Neutral for ESC
 
