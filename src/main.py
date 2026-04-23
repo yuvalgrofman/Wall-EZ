@@ -1,5 +1,5 @@
 import os
-from movement_commands import process_command, apply_esc_microsec
+from new_movement_commands import process_command, apply_esc_microsec
 from picture_analyzer import capture_image_from_usb_camera, find_target_aruco, find_target_fallback, CAMERA_MATRIX, DISTORTION_COEFFS
 import cv2
 import time
@@ -54,11 +54,11 @@ ZONE_VERY_FAR_RIGHT_MIN = int(LOGICAL_WIDTH * 0.90)
 CLOSE_ENOUGH_Y_MIN = int(LOGICAL_HEIGHT * 0.50)
 
 # Steering durations (seconds)
-TURN_RIGHT_DURATION_VERY_FAR = 0.14
-TURN_RIGHT_DURATION_FAR      = 0.07
+TURN_RIGHT_DURATION_VERY_FAR = 0.12
+TURN_RIGHT_DURATION_FAR      = 0.06
 
-TURN_LEFT_DURATION_VERY_FAR  = 0.14
-TURN_LEFT_DURATION_FAR       = 0.07
+TURN_LEFT_DURATION_VERY_FAR  = 0.12
+TURN_LEFT_DURATION_FAR       = 0.06
 
 # STOP AFTER STEERING DURATION TO STABILIZE CAMERA
 STEERING_STABILIZATION_DURATION = 0.4
