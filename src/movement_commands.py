@@ -93,8 +93,8 @@ def process_command(cmd):
         # Left wheels forward, Right wheels backward
         servo_lf.value = map_degree_to_value(180)
         servo_lb.value = map_degree_to_value(180)
-        servo_rf.value = map_degree_to_value(0)
-        servo_rb.value = map_degree_to_value(0)
+        servo_rf.value = map_degree_to_value(40)
+        servo_rb.value = map_degree_to_value(40)
             
     elif cmd == "STOP":
         for wheel in wheels:
